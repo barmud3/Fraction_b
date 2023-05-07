@@ -15,7 +15,6 @@ namespace ariel {};
             int denominator;
         
         public:
-            //Fraction(int num = 1, int den = 1);
             Fraction(double num = 1.0, double den = 1.0);
             Fraction(float shever);
 

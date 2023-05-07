@@ -11,7 +11,7 @@ using namespace std;
             __throw_invalid_argument("denominator can't be 0 , math error");
         }
         
-        //the defult value left meanning , someone enter Fraction(double)
+        //someone enter Fraction(float)
         if (den == 1 && fmod(num, 1) != 0)
         {
             *this = Fraction((float)num);
@@ -21,11 +21,12 @@ using namespace std;
             this->numerator /=-1;
             this->denominator /=-1;
         }
-        //cout << "newNumerator" << this->numerator << " newDenominator" << this->denominator << endl;
         int gcd = gcdFunc(this->numerator,this->denominator);
         this->numerator /= gcd;
         this->denominator /= gcd;
     }
+    
+    //transfor from float to reduced Fraction
     Fraction::Fraction(float shever){
         int rounded = round(shever * 1000);
         int gcd = gcdFunc(rounded,1000);
@@ -35,7 +36,6 @@ using namespace std;
 
     int Fraction::gcdFunc( int num1, int num2) const
     {   
-        
         if (num2 == 0) {
             if(num1==-1){
                 return 1;
@@ -59,10 +59,12 @@ using namespace std;
     }
     Fraction operator+(const Fraction& other , float shever)
     {
+        //using Fraction + Fraction
         return other + Fraction(shever);
     }
     Fraction operator+(float shever , const Fraction& other)
     {
+        //using Fraction + float
         return other + shever;
     }
     
@@ -96,7 +98,6 @@ using namespace std;
         }
         int newNumerator = (int)n;
         int newDenominator = (int)d;
-        //cout << "newNumerator" << newNumerator << " newDenominator" << newDenominator << endl;
         int gcd = gcdFunc(newNumerator,newDenominator);
         return Fraction(newNumerator/gcd , newDenominator/gcd);
     }
@@ -252,7 +253,6 @@ using namespace std;
 
     ostream& operator<<(ostream& buffer, const Fraction& other) {
         Fraction newFrac(other.numerator, other.denominator);
-        //cout << "numerator : "  << newFrac.numerator << "denominator : " << newFrac.denominator << endl;
         buffer << newFrac.numerator << '/' << newFrac.denominator;
         return buffer;
     }
@@ -266,10 +266,7 @@ using namespace std;
         {
             throw runtime_error("denominator in fraction can't be zero");
         }
-        else
-        {
         other.numerator = num;
         other.denominator = den;
-        }
         return input;
     }
